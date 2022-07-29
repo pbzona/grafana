@@ -112,21 +112,23 @@ export const PageToolbar: FC<Props> = React.memo(
               </>
             )}
 
-            {title && (
+            {title !== undefined && (
               <div className={styles.titleWrapper}>
-                <h1 className={styles.h1Styles}>
-                  {titleHref ? (
-                    <Link
-                      aria-label="Search dashboard by name"
-                      className={cx(styles.titleText, styles.titleLink)}
-                      href={titleHref}
-                    >
-                      {titleEl}
-                    </Link>
-                  ) : (
-                    <div className={styles.titleText}>{titleEl}</div>
-                  )}
-                </h1>
+                {title && (
+                  <h1 className={styles.h1Styles}>
+                    {titleHref ? (
+                      <Link
+                        aria-label="Search dashboard by name"
+                        className={cx(styles.titleText, styles.titleLink)}
+                        href={titleHref}
+                      >
+                        {titleEl}
+                      </Link>
+                    ) : (
+                      <div className={styles.titleText}>{titleEl}</div>
+                    )}
+                  </h1>
+                )}
                 {leftItemChildren}
               </div>
             )}
