@@ -13,9 +13,11 @@ import {
 
 import { BarGaugeCell } from './BarGaugeCell';
 import { DefaultCell } from './DefaultCell';
-import { getFooterValue } from './FooterRow';
 import { GeoCell } from './GeoCell';
 import { ImageCell } from './ImageCell';
+import { AreaChartCell } from './AreaChartCell';
+import { BarChartCell } from './BarChartCell';
+import { getFooterValue } from './FooterRow';
 import { JSONViewCell } from './JSONViewCell';
 import { CellComponent, TableCellDisplayMode, TableFieldOptions, FooterItem, GrafanaTableColumn } from './types';
 
@@ -83,7 +85,7 @@ export function getColumns(
       id: fieldIndex.toString(),
       field: field,
       Header: getFieldDisplayName(field, data),
-      accessor: (row: any, i: number) => {
+      accessor: (_: any, i: number) => {
         return field.values.get(i);
       },
       sortType: selectSortType(field.type),
@@ -132,6 +134,10 @@ export function getCellComponent(displayMode: TableCellDisplayMode, field: Field
       return BarGaugeCell;
     case TableCellDisplayMode.JSONView:
       return JSONViewCell;
+    case TableCellDisplayMode.AreaChart:
+      return AreaChartCell;
+    case TableCellDisplayMode.BarChart:
+      return BarChartCell;
   }
 
   if (field.type === FieldType.geo) {
@@ -146,7 +152,7 @@ export function getCellComponent(displayMode: TableCellDisplayMode, field: Field
 }
 
 export function filterByValue(field?: Field) {
-  return function (rows: Row[], id: string, filterValues?: SelectableValue[]) {
+  return function(rows: Row[], id: string, filterValues?: SelectableValue[]) {
     if (rows.length === 0) {
       return rows;
     }
